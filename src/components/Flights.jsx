@@ -9,18 +9,19 @@ const Flights = props => {
     const perPage = 5;
     const handleBackBtn = (e) => {
         setCurrentPage(Math.max(currentPage - 1, 0))
-        document.getElementById("nextBtn").classList.remove('btn-danger');
-        if(currentPage == 0) {
-            e.target.classList.add('btn-danger');
+        document.getElementById("nextBtn").classList.remove('btn-dark');
+        if(currentPage <= 1) {
+            e.target.classList.add('btn-dark');
         }
     }
     const handleNextBtn = (e) => {
         setCurrentPage(Math.min(currentPage + 1, Math.ceil(props.flights.length / 5) - 1));
         if(currentPage >= Math.ceil(props.flights.length / 5) - 2) {
-            e.target.classList.add('btn-danger')
-            console.log(e.target)
+            e.target.classList.add('btn-dark')
         }
-        document.getElementById("backBtn").classList.remove('btn-danger');
+        document.getElementById("backBtn").classList.remove('btn-dark');
+        document.getElementById("backBtn").classList.add('btn-secondary');
+
     }
 
     let pagination = ('');
@@ -36,7 +37,7 @@ const Flights = props => {
             pagination = (
                 <Form>
                     <hr/>
-                    <Button onClick={handleBackBtn} id="backBtn">Back</Button>
+                    <Button color="dark"  onClick={handleBackBtn} id="backBtn">Back</Button>
                     <span style= {{padding:'2rem'}}>{currentPage + 1}</span>
                     <Button onClick={handleNextBtn} id="nextBtn">Next</Button>
                 </Form>
