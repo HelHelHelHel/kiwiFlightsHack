@@ -41,7 +41,9 @@ const FlightForm = props => {
                 <Input type="checkbox" value={direct} onChange={onCheckboxClick}/> Only direct flights
                 </Label>
             </FormGroup>
+            <br/>
             <Button onClick={handleSubmit}>Submit</Button>
+            
         </Form>
     );
 };

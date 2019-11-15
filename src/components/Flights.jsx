@@ -23,7 +23,7 @@ const Flights = props => {
         document.getElementById("backBtn").classList.remove('btn-danger');
     }
 
-
+    let pagination = ('');
     let content = ('');
     if(props.loading) {
         content = <div>Loading...</div>
@@ -32,14 +32,23 @@ const Flights = props => {
     } else if(Array.isArray(props.flights) &&  props.flights.length == 0) {
         content = (<div>Sorry, no direct flights...</div>);
     } else {   
-        content = (
-            <div>
-                <hr/>
+        if(props.flights.length > 5) {
+            pagination = (
                 <Form>
+                    <hr/>
                     <Button onClick={handleBackBtn} id="backBtn">Back</Button>
                     <span style= {{padding:'2rem'}}>{currentPage + 1}</span>
                     <Button onClick={handleNextBtn} id="nextBtn">Next</Button>
                 </Form>
+            )
+        }
+        content = (
+            <div>
+                <hr/>
+                <div>Number of available flights: { props.flights.length }</div>
+                <br/>
+                
+                
                 <hr/>
                 {
                     props.flights.slice(currentPage * perPage, currentPage * perPage + perPage).map((flight, key) => (
@@ -64,7 +73,7 @@ const Flights = props => {
     
     return (
         <>
-            
+            { pagination }
             { content }
         </>
     )
