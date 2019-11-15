@@ -2,11 +2,15 @@ import React from 'react';
 import { DateTime } from 'luxon';
 
 const Flights = props => {
-    
+    console.log(props.flights)
     let content = ('');
     if(props.loading === true) {
         content = <div>Loading...</div>
     
+    } else if(Array.isArray(props.flights) &&  props.flights.length == 0) {
+        content = (<div>Sorry, no direct flights...</div>);
+    } else if(props.flights[0] == 1 && props.flights.length == 1){
+        content = (<div>Hello, please choose your flight!</div>);
     } else {   
         content = (
             <div>

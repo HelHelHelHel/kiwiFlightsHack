@@ -5,28 +5,27 @@ import FlightForm from './components/FlightForm.jsx'
 
  
 const App = () => {
-   const [flights, setFlights] = useState ([]);
+   const [flights, setFlights] = useState ([1]);
    const [loading, setLoading] = useState (false);
    const [departure, setDeparture] = useState ('PRG');
    const [arrival, setArrival] = useState ('VLC');
 
    
-    useEffect(() => {
+    const changeDest = (dep, arr, dir) => {
+        setDeparture(dep);
+        setArrival(arr);
         setLoading(true);   
         async function fetchFlights() {
-            const response = await fetch(`https://api.skypicker.com/flights?flyFrom=${departure}&to=${arrival}&dateFrom=15/11/2019&dateTo=17/11/2019&partner=picky&limit=5`);
+            const response = await fetch(`https://api.skypicker.com/flights?flyFrom=${dep}&to=${arr}&dateFrom=16/11/2019&dateTo=16/11/2019&partner=picky${(dir)?"&max_stopovers=0":""}`);
             const data = await response.json();
             setFlights(data.data);
             setLoading(false); 
-            console.log('data', data)
+            
         }
         fetchFlights();
-    }, [departure, arrival])
- 
-    const changeDest = (dep, arr) => {
-        setDeparture(dep);
-        setArrival(arr);
+        
     }
+    
     
     return (
         <>

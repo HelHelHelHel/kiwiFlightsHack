@@ -4,11 +4,15 @@ import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 const FlightForm = props => {
     const [selectDeparture, setSelectDeparture] = useState('PRG');
     const [selectArrival, setSelectArrival] = useState('VLC');
+    const [direct, setDirect] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('sub');
-        props.onClick(selectDeparture, selectArrival);
+        props.onClick(selectDeparture, selectArrival, direct);
+    }
+
+    const onCheckboxClick = () => {
+        setDirect(prevDirect => !prevDirect)
     }
 
     return (
@@ -34,7 +38,7 @@ const FlightForm = props => {
             </FormGroup>
             <FormGroup check>
                 <Label check>
-                <Input type="checkbox" /> Check me out
+                <Input type="checkbox" value={direct} onChange={onCheckboxClick}/> Only direct flights
                 </Label>
             </FormGroup>
             <Button onClick={handleSubmit}>Submit</Button>
