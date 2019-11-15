@@ -7,6 +7,22 @@ const Flights = props => {
 
     const [currentPage, setCurrentPage] = useState(0);
     const perPage = 5;
+    const handleBackBtn = (e) => {
+        setCurrentPage(Math.max(currentPage - 1, 0))
+        document.getElementById("nextBtn").classList.remove('btn-danger');
+        if(currentPage == 0) {
+            e.target.classList.add('btn-danger');
+        }
+    }
+    const handleNextBtn = (e) => {
+        setCurrentPage(Math.min(currentPage + 1, Math.ceil(props.flights.length / 5) - 1));
+        if(currentPage >= Math.ceil(props.flights.length / 5) - 2) {
+            e.target.classList.add('btn-danger')
+            console.log(e.target)
+        }
+        document.getElementById("backBtn").classList.remove('btn-danger');
+    }
+
 
     let content = ('');
     if(props.loading) {
@@ -18,6 +34,13 @@ const Flights = props => {
     } else {   
         content = (
             <div>
+                <hr/>
+                <Form>
+                    <Button onClick={handleBackBtn} id="backBtn">Back</Button>
+                    <span style= {{padding:'2rem'}}>{currentPage + 1}</span>
+                    <Button onClick={handleNextBtn} id="nextBtn">Next</Button>
+                </Form>
+                <hr/>
                 {
                     props.flights.slice(currentPage * perPage, currentPage * perPage + perPage).map((flight, key) => (
                         <div key={key}>
@@ -37,19 +60,11 @@ const Flights = props => {
         )
     } 
 
-    const handleBackBtn = () => {
-        setCurrentPage(Math.max(currentPage - 1, 0))
-    }
-    const handleNextBtn = () => {
-        setCurrentPage(Math.min(currentPage + 1, Math.ceil(props.flights.length / 5) - 1));
-    }
+    
     
     return (
         <>
-            <Form>
-                <Button onClick={handleBackBtn}>Back</Button>
-                <Button onClick={handleNextBtn}>Next</Button>
-            </Form>
+            
             { content }
         </>
     )
