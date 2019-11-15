@@ -5,8 +5,8 @@ import FlightForm from './components/FlightForm.jsx'
 
  
 const App = () => {
-   const [flights, setFlights] = useState ([1]);
-   const [loading, setLoading] = useState (false);
+   const [flights, setFlights] = useState ([]);
+   const [loading, setLoading] = useState ();
    const [departure, setDeparture] = useState ('PRG');
    const [arrival, setArrival] = useState ('VLC');
 
